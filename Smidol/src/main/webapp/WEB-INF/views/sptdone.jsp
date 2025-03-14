@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,12 +86,55 @@
       <h4>해당 정보로 결제 완료되었습니다.</h4>
     </div>
     <div id="main">
-      <div class="info-row"><div class="label">계좌:</div> <div class="value">123-4567-8901</div></div>
-      <div class="info-row"><div class="label">주문번호:</div> <div class="value">#20250227</div></div>
-      <div class="info-row"><div class="label">배송지:</div> <div class="value">서울특별시 강남구</div></div>
-      <div class="info-row"><div class="label">배송수단:</div> <div class="value">택배</div></div>
-      <div class="info-row"><div class="label">배송메모:</div> <div class="value">문 앞에 놓아주세요.</div></div>
-      <button>확인</button>
+      <!-- 주문번호 -->
+      <div class="info-row">
+        <div class="label">주문번호:</div>
+        <div class="value">${orderNumber}</div>
+      </div>
+      
+      <!-- 주문일시 -->
+      <div class="info-row">
+        <div class="label">주문일시:</div>
+        <div class="value">${approved_at}</div>
+      </div>
+      
+      <!-- 상품명 -->
+      <div class="info-row">
+        <div class="label">상품명:</div>
+        <div class="value">${productName}</div>
+      </div>
+      
+      <!-- 수량 -->
+      <div class="info-row">
+        <div class="label">수량:</div>
+        <div class="value">${quantity}개</div>
+      </div>
+      
+      <!-- 결제금액 -->
+      <div class="info-row">
+        <div class="label">결제금액:</div>
+        <div class="value"><fmt:formatNumber value="${totalAmount}" pattern="#,###" />원</div>
+      </div>
+      
+      <!-- 배송지 -->
+      <div class="info-row">
+        <div class="label">배송지:</div>
+        <div class="value">${address}</div>
+      </div>
+      
+      <!-- 우편번호 -->
+      <div class="info-row">
+        <div class="label">우편번호:</div>
+        <div class="value">${zipCode}</div>
+      </div>
+      
+      <!-- 결제수단 -->
+      <div class="info-row">
+        <div class="label">결제수단:</div>
+        <div class="value">${paymentMethod}</div>
+      </div>
+      
+      <button onclick="location.href='/smain'">확인</button>
     </div>
   </section>
 </body>

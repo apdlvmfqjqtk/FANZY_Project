@@ -17,9 +17,10 @@ public class MemberServiceImpl implements MemberService {
 	//로그인한 회원정보 넘기기
 	@Override
 	public Optional<MemberDto2> findByMemberId(String memberId) {
-		Optional<MemberDto2> minfo = memberRepository.findByMemberNickname(memberId);
+		Optional<MemberDto2> minfo = memberRepository.findByMemberId(memberId);
 		return minfo;
 	}
+	
 
 	//로그인
 	@Override

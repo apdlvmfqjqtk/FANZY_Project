@@ -332,6 +332,8 @@ function FindDaumPostcode() {
 }
 
 // 구매 버튼 클릭
+// sptwind.jsp 파일의 buyBtn 함수 부분 수정
+
 function buyBtn() {
     if(confirm("상품을 구매하시겠습니까?")) {
         // 주소 입력 여부 확인
@@ -340,23 +342,29 @@ function buyBtn() {
             return;
         }
         
+        // 구매 수량 변수 설정
+        const purchaseQuantity = ${param.quantity};
+        
         // 결제 데이터 준비
-        let buyDate = {
+        let buyData = {
             name: "${sdto.shop_title}",
             totalPrice: window.calculatedTotalPrice || ${sdto.shop_price * param.quantity},
-            quantity: ${param.quantity},
-            shippingFee: window.selectedShippingFee || 0,
-            usedReward: window.usedReward || 0,
-            address: $("#src_address").val() + " " + $("#src_detailAddress").val(),
-            zipCode: $("#sample6_postcode").val(),
-            paymentMethod: $("#paymentMethod").val()
+            order_total_amount: purchaseQuantity, // 여기에 수량 저장
+            order_product_price: ${sdto.shop_price}, // 단가 저장
+            order_shipping_fee: window.selectedShippingFee || 0,
+            order_used_reward: window.usedReward || 0,
+            order_address: $("#src_address").val() + " " + $("#src_detailAddress").val(),
+            order_zipcode: $("#sample6_postcode").val(),
+            order_detail_address: "${param.sprodId}", // 상품번호를 임시로 저장
+            order_payment_method: $("#paymentMethod").val(),
+            orderQuantity: purchaseQuantity // 추가 파라미터로 수량 전달
         };
         
         // AJAX로 결제 API 호출
         $.ajax({
             url: '/pay/orderPay',
             type: 'POST',
-            data: buyDate,
+            data: buyData,
             dataType: 'json',
             success: function(data) {
                 console.log(data);
