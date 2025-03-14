@@ -703,7 +703,8 @@ a {
 	        if(data.success) {
 	            alert('장바구니에 추가되었습니다.');
 	        } else {
-	            alert('장바구니 추가에 실패했습니다.');
+				// 수량이 넘는 경우 메시지 출력
+	            alert(data.message || '장바구니 추가에 실패했습니다.');
 	        }
 	    })
 	    .catch(error => {

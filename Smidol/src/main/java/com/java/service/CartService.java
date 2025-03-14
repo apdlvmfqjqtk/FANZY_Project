@@ -14,4 +14,7 @@ public interface CartService {
     // 카트에 물건추가
     CartDto addToCart(String memberNickname, String cartItems);
 
+    //구매제한개수 확인
+	int getCartItemQuantity(String memberNickname, int shopNo);
+
 }

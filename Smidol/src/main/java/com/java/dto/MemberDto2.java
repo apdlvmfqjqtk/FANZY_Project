@@ -30,9 +30,11 @@ public class MemberDto2 {
 	private String member_pw;			// 패스워드
 	@Column(nullable = false,length=20)
 	private String member_name;		// 실명
+	
 	@Id // primary key
 	@Column(nullable = false,length=20) 
-	private String member_nickname;    // 닉네임
+	private String member_nickname;    // 닉네임  nickName nick_name
+	
 	@Column(nullable = false,length=30)
 	private String member_email;       // 이메일
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

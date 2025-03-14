@@ -14,6 +14,9 @@
 	</head>
 	<body>
 		<h2>메인화면</h2>
+		<a>로그인정보</a><br />
+		<a>${session_id}</a><br />
+		<a>${session_nickname}</a>
 		<ul>
 			<li><a href="/smain">상점 메인</a></li>
 			<li><a href="/sprods">물건배열 (못들어감)</a></li>

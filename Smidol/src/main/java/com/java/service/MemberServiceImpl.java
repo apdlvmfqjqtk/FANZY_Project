@@ -31,8 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	//아이디확인
 	@Override
 	public Object findById(String id) {
-		Object object = findById(id);
-		return object;
+		return memberRepository.findById(id).orElse(null);
 	}
 
 }

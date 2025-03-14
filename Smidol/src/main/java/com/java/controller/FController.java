@@ -98,8 +98,36 @@ public class FController {
 		//디버그
 		System.out.println("AddToCart 요청 수신: " + productInfo);
 	    String memberNickname = (String) session.getAttribute("session_nickname");
+	    System.out.println("Session Nickname: " + memberNickname); // 로그 추가
 	    
 	    try {
+	        // 상품 번호와 수량 가져오기
+	        int shopNo = Integer.parseInt(productInfo.get("shopNo").toString());
+	        int quantity = Integer.parseInt(productInfo.get("quantity").toString());
+	        
+	        // 상품 정보 가져오기
+	        Optional<ShopDto> shopOpt = shopService.findById(shopNo);
+	        if (!shopOpt.isPresent()) {
+	            return ResponseEntity.badRequest().body(Map.of(
+	                "success", false, 
+	                "message", "상품을 찾을 수 없습니다."
+	            ));
+	        }
+	        ShopDto shop = shopOpt.get();
+	        
+	        // 장바구니에 이미 담긴 수량 확인
+	        int cartQuantity = cartService.getCartItemQuantity(memberNickname, shopNo);
+	        
+	        // 구매 제한 확인
+	        if (cartQuantity + quantity > shop.getShop_buylimit()) {
+	            return ResponseEntity.badRequest().body(Map.of(
+	                "success", false, 
+	                "message", "구매 제한 수량은 " + shop.getShop_buylimit() + "개 입니다. 이미 장바구니에 " + 
+	                          cartQuantity + "개가 있어 더 추가할 수 없습니다."
+	            ));
+	        }
+	    
+	    
 	        // JSON 문자열로 변환
 	        ObjectMapper objectMapper = new ObjectMapper();
 	        String cartItemsJson = objectMapper.writeValueAsString(

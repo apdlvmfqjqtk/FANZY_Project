@@ -14,7 +14,8 @@ public interface MemberRepository extends JpaRepository<MemberDto2, String> {
     MemberDto2 findByIdAndPw(@Param("id") String id, @Param("pw") String pw);
 
     // 2. findByMemberNickname 메서드 수정
-    Optional<MemberDto2> findByMemberNickname(String nickname);
+    @Query("SELECT m FROM MemberDto2 m WHERE m.member_nickname = :nickname")
+    Optional<MemberDto2> findByMemberNickname(@Param("nickname") String nickname);
 
     // 멤버 ID 조회
     @Query(value = "SELECT * FROM memberdto2 WHERE member_id = :memberId", nativeQuery = true)

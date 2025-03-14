@@ -29,7 +29,7 @@ public class CartDto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cart_no; // 장바구니 고유번호
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_nickname", nullable = false)
     private MemberDto2 member;  // 🚀 회원 테이블과 연결 (외래키)
 
